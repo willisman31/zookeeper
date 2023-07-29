@@ -1,0 +1,17 @@
+{
+    "certGen": {
+        "emailAddress":             "zookeeper",
+        "commonName":               "zookeeper",
+        "countryName":              "zk",
+        "localityName":             "zookeeper",
+        "stateOrProvinceName":      "zookeeper",
+        "organizationName":         "zookeeper",
+        "organizationUnitName":     "zookeeper",
+        "serialNumber":             0,
+        "validityStartInSeconds":   0,
+        "validityEndInSeconds":     315360000,
+        "KEY_FILE":                 "private.key",
+        "PUB_FILE":                 "key.pub",
+        "CERT_FILE":                "selfsigned.crt"
+    }
+}
