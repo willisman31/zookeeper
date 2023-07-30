@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import json
+import socket
 from OpenSSL import crypto, SSL
 
 hostname = ""
@@ -44,3 +45,17 @@ def cert_gen(
     with open(PUB_FILE, "wt") as f:
         f.write(crypto.dump_publickey(crypto.FILETYPE_PEM, k).decode("utf-8"))
 
+def retrieve_local_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+    ip = s.getsockname()[0]
+    s.close()
+    return ip
+
+def get_broadcast_address():
+    ip = retrieve_local_ip()
+    ip_split = ip.split('.')[:-1]
+    ip_split.append("255")
+    return '.'.join(ip_split)
+
+print(get_broadcast_address())
