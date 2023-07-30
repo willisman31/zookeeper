@@ -1,15 +1,8 @@
 # zookeeper
 
-High level framework for connecting clients to server on local network using Python
+Simple Python library for establishing peer-to-peer connections on a local network.  Includes basic PKI encryption with OpenSSL.
 
 ## Requires the following libraries:
 
- - Sockets
- - Argparse
-
-### Setup
-
-```
-pip3 install sockets
-pip3 install argparse
-```
+- pyOpenSSL
+- json
