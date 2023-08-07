@@ -3,10 +3,8 @@ import json
 import socket
 from OpenSSL import crypto, SSL
 
-hostname = ""
-port = 000
-
 cert = json.loads(open("./config/cert.json").read())
+network = json.loads(open("./config/network.json").read())
 
 def cert_gen(
     emailAddress=cert['certGen']['emailAddress'],
@@ -58,4 +56,18 @@ def get_broadcast_address():
     ip_split.append("255")
     return '.'.join(ip_split)
 
-print(get_broadcast_address())
+def broadcast(port=network['port']):
+    broadcast_ip = get_broadcast_address()
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.bind(('', port))
+    s.connect((broadcast_ip, port))
+    totalSent = 0
+    message = "Connect with zookeeper on: " + retrieve_local_ip() + "\n\n"
+    msg = bytes(message, "UTF-8")
+    while totalSent < len(msg):
+        sent = s.send(msg[totalSent:])
+        if sent == 0:
+            raise RuntimeError("Connection broken")
+        totalSent += sent
+    s.close()
+
